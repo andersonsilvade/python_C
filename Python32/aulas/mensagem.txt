@@ -1,0 +1,3 @@
+Caso você execute este programa nada aparecerá na tela
+•Procure no diretório c:\Python31 o arquivo números.txt
+•O modo w cria o arquivo se ele não existir, caso exista ele será apagado e reescrito

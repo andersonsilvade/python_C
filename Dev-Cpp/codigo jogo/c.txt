@@ -1,0 +1,119 @@
+
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <conio.h>
+#define VAZIO ' '
+#define PAREDE '|'
+#define OBSTACULO 'O'
+#define OBSTACULO2 '-'
+#define JOGADOR '^'
+#define TIRO '|'
+#define FUEL '#'
+
+void inicializaMapa (char matriz[20][20]){
+    int i, j;
+    for (i=0; i<20; i++){
+        for (j=0; j<20; j++){
+            matriz[i][j] = VAZIO;
+        }
+    }
+    for (i=0; i<20; i++){
+        matriz[i][5] = PAREDE;
+        matriz[i][15] = PAREDE;
+    }
+}
+
+
+void desenhaMapa (char matriz[20][20], int coljog){
+    int i, j, k;
+    for (i=0; i<20; i++){
+        for (j=0; j<20; j++){
+            if ((i==19) && (j==coljog)){
+            printf ("%c", JOGADOR);
+            printf (" ");
+            }
+            else{
+            printf ("%c", matriz[i][j]);
+            printf (" ");
+            }
+           
+        }
+        printf ("\n");
+    }
+}
+
+
+void atualizaMapa (char matriz[20][20],int combustivel){
+    int i, j,k, posObstaculo;
+    for (i=18; i>=0; i--){
+        for (j=0; j<20; j++){
+            matriz[i+1][j] = matriz[i][j];
+        }
+    }
+                  for(k=0;k<combustivel;k++){
+                  matriz[19][k] = FUEL;
+                 
+                  }
+    for (j=0; j<19; j++){
+        matriz[0][j] = VAZIO; 
+    }           
+    matriz[0][5] = PAREDE;
+    matriz[0][15] = PAREDE;
+    if ((rand() % 100) < 30){
+            posObstaculo = 6 + (rand() % 9);
+            matriz[0][posObstaculo] = OBSTACULO;
+        }     
+   
+}
+   
+
+
+int main (int argc, char *argv[]){
+    char dig, mapa[20][20];
+    int colparede, coljog = 10, i, tempo=0,levelup=0, combustivel = 5;
+    inicializaMapa(mapa);
+   
+
+    while (mapa[19][coljog] != OBSTACULO || combustivel !=0){
+          dig = getch();
+         
+          if ((dig=='a') && (coljog > 6)){
+          coljog--;
+          system ("CLS"); 
+          desenhaMapa (mapa, coljog);
+          atualizaMapa (mapa,combustivel);
+         
+          }
+         
+          if ((dig=='d') && (coljog < 14)){
+              system ("CLS");
+              coljog++;
+          desenhaMapa (mapa, coljog);
+          atualizaMapa (mapa,combustivel);
+       
+          }
+         
+          if (dig=='w'){
+              system ("CLS");
+
+          desenhaMapa (mapa, coljog);
+          atualizaMapa (mapa,combustivel);
+    }
+    tempo++;
+    if(tempo<10){
+    tempo = 0;
+    combustivel = -1;
+    }
+}
+    system ("PAUSE");
+    return 0;
+}
+
+
+
+http://tudosobreprogramacao.forumeiros.com/t23-enduro-jogo-classico-do-atari
+
+http://www.ign.com/faqs/2005/enduro-4695-walkthrough-portuguese-627186
+
+soragamer.blogspot.com

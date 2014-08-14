@@ -1,0 +1,8 @@
+A função recursiva a seguir é infinita, pois para que ela tenha fim , seria nescessário algum comando que fosse diminuindo o n até ele virar zero, no entanto, 
+o único comando que tende a diminuir ele o aproxima de zero, mas nunca o transfromará em zero,
+
+int XX (int n) {
+	if (n == 0) return 0;
+	else return XX (n/3+1) + n;
+}
+

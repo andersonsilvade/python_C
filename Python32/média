@@ -1,0 +1,4 @@
+notas=[10,"8",9,"7",5]
+média=notas[0+1+2+3+4]/5:
+    print("média: %5.f" % média)
+    

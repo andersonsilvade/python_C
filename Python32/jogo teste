@@ -1,0 +1,5 @@
+chute=int(input("digite um numero: ")
+x=0
+while x < 5:
+          if chute == 42:
+          print("você venceu!!!!!")

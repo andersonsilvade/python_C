@@ -1,0 +1,155 @@
+#include<iostream>
+#include<conio.h>
+#include<math.h>
+#include<stdio.h>
+#include<windows.h>
+using namespace std;
+
+
+//******************************************************************************
+void
+gotoxy(int x, int y)
+{
+  COORD c;
+
+  c.X = x - 1;
+  c.Y = y - 1;
+  SetConsoleCursorPosition (GetStdHandle(STD_OUTPUT_HANDLE), c);
+}
+//******************************************************************************
+static int __BACKGROUND = BLACK;
+static int __FOREGROUND = LIGHTGRAY;
+void
+textbackground (int color)
+{
+    __BACKGROUND = color;
+    SetConsoleTextAttribute (GetStdHandle (STD_OUTPUT_HANDLE),
+      __FOREGROUND + (color << 4));
+}
+//********************************************************************************
+void
+textcolor (int color)
+{
+    __FOREGROUND = color;
+    SetConsoleTextAttribute (GetStdHandle (STD_OUTPUT_HANDLE),
+      color + (__BACKGROUND << 4));
+}
+
+//******************************************************************************
+// Variáveis Globais
+int binario=0,x,y,loop_kbhit=0,loop_pista=20,cor_texto=15,cor_fundo=0,LimpaImpressao[1][2]={20,36},nova_posicao=33,carro_inimigo[2][20]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                                                                                                                                         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                                                                                                                   carro_teste[2][4]={0,0,0,0,
+                                                                                                                                      0,0,0,0};                                                         
+//******************************************************************************
+//Carrinhos
+int carro[4][16]={0,0,219,219,220,220,219,219,219,219,220,220,219,219,0,0,
+                       1,1,2,2,220,220,219,219,219,219,220,220,2,2,1,1,
+                       1,1,2,2,219,219,219,219,219,219,219,219,2,2,1,1,
+                       1,1,2,2,0,0,223,223,223,223,0,0,2,2,1,1},
+carro14[4][16]={0,0,219,219,220,220,219,219,219,219,220,220,219,219,0,0,
+                1,1,2,2,196,196,219,219,219,219,196,196,2,2,1,1,
+                1,1,2,2,223,223,219,219,219,219,223,223,2,2,1,1,
+                4,4,5,5,0,0,0,0,0,0,0,0,5,5,4,4};
+//******************************************************************************
+
+void imprime(int variavel[4][16],int linha,int coluna, int cor,int verificador) //essa função serve pra imprimir o conteúdo de uma  variavel 4x18
+{
+     
+   
+     
+     if(verificador==0)
+     if(LimpaImpressao[0][1]!= coluna)
+     for(x=0;x<4;x++)
+     for(y=0;y<16;y++)
+     if(variavel[x][y]!=0)
+     {gotoxy(LimpaImpressao[0][1] + y,linha + x);printf(" ");}
+     
+      if(verificador==0)
+      if(LimpaImpressao[0][0]!= linha)
+      for(x=0;x<4;x++)
+      for(y=0;y<16;y++)
+      if(variavel[x][y]!=0)
+      {gotoxy(coluna + y,LimpaImpressao[0][0] + x);printf(" ");}
+     
+     
+   for(x=linha;x<linha+4;x++)
+   for(y=coluna;y<16+coluna;y++)
+   if(variavel[x-linha][y-coluna]!=0)
+       
+        {
+          textcolor(cor);textbackground(cor_fundo);
+         
+          if(variavel[x-linha][y-coluna]== 1 && loop_kbhit%2==0){textcolor(15);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 1 && loop_kbhit%2==1){textcolor(15);gotoxy(y,x);printf("%c",220);}else
+          if(variavel[x-linha][y-coluna]== 2 && loop_kbhit%2==0){textcolor(15);gotoxy(y,x);printf("%c",220);}else
+          if(variavel[x-linha][y-coluna]== 2 && loop_kbhit%2==1){textcolor(15);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 3 && loop_kbhit%2==0){textcolor(4);textbackground(15);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 3 && loop_kbhit%2==1){textcolor(4);textbackground(cor_fundo);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 4 && loop_kbhit%2==0){textcolor(15);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 4 && loop_kbhit%2==1){textcolor(0);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 5 && loop_kbhit%2==1){textcolor(15);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 5 && loop_kbhit%2==0){textcolor(0);gotoxy(y,x);printf("%c",223);}else
+          if(variavel[x-linha][y-coluna]== 196){textcolor(cor_fundo);textbackground(4);gotoxy(y,x);printf("%c",196);}else
+          if(LimpaImpressao[0][0] == linha && LimpaImpressao[0][1] == coluna);else
+          {gotoxy(y,x);printf("%c",variavel[x-linha][y-coluna]);}
+        }
+        if(verificador==0)
+        {LimpaImpressao[0][0] = linha;
+        LimpaImpressao[0][1] = coluna;}
+     }
+//******************************************************************************
+void pista()
+{
+  textcolor(15);textbackground(0);
+  gotoxy(41,5);printf("%c",220);
+  if(loop_kbhit%2 == 0)
+   {
+      for(x=0;x<19;x++)
+       {
+        if(loop_pista>0)
+        if(loop_pista == x ||loop_pista == x - 1 || loop_pista == x - 2)binario = 1;
+        gotoxy(38 - x * 2 + binario,x + 6);printf(" %c%c ",220,223);
+        gotoxy(41 + x * 2 - binario,x + 6);printf(" %c%c ",223,220);
+        binario = 0;
+       }
+        loop_pista++;
+        if(loop_pista>20)loop_pista=0;
+   }
+       
+}
+//******************************************************************************
+void carros_inimigos()
+{
+   
+} 
+
+
+//******************************************************************************
+void Inicio_do_jogo(int x)
+{
+   pista();
+   imprime(carro,22,nova_posicao,9,0);
+ 
+     }
+//******************************************************************************
+main()
+{
+  int proxima_posicao;
+  textbackground(11);
+  for(x=0;x<32;x++)printf("          ");
+  inicio:
+     while(!kbhit())
+     
+        {
+        Inicio_do_jogo(nova_posicao);
+        loop_kbhit++;
+        if(loop_kbhit==2000)loop_kbhit=0;
+        }
+  proxima_posicao=getch();
+  if(proxima_posicao!='K' && proxima_posicao!='M')goto inicio;
+  if(proxima_posicao=='K'){nova_posicao--;if(nova_posicao==8)nova_posicao=11;goto inicio;}
+  if(proxima_posicao=='M'){nova_posicao++;if(nova_posicao==59)nova_posicao=56;goto inicio;}
+     
+     
+      goto inicio;

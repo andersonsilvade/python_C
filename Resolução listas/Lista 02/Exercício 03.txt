@@ -1,0 +1,12 @@
+celula *buscaR(int x, celula *lista){
+
+    celula *aux;
+    aux = lista->pc;
+
+    if(aux->conteudo == x){
+        return aux;
+        }
+    else{
+        return buscaR(x, lista->pc);
+        }
+    }

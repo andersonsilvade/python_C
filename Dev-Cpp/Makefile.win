@@ -1,0 +1,57 @@
+# Project: peeee
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = peeee_private.res
+OBJ  = "codigo\ jogo/pekkopekko/testejogo.o" "codigo\ jogo/pekkopekko/astar.o" "codigo\ jogo/pekkopekko/fantasma.o" "codigo\ jogo/pekkopekko/fundo.o" "codigo\ jogo/pekkopekko/jogo.o" "codigo\ jogo/pekkopekko/main.o" "codigo\ jogo/pekkopekko/pacman.o" "codigo\ jogo/pekkopekko/teclado.o" "codigo\ jogo/pekkopekko/tela.o" $(RES)
+LINKOBJ  = "codigo jogo/pekkopekko/testejogo.o" "codigo jogo/pekkopekko/astar.o" "codigo jogo/pekkopekko/fantasma.o" "codigo jogo/pekkopekko/fundo.o" "codigo jogo/pekkopekko/jogo.o" "codigo jogo/pekkopekko/main.o" "codigo jogo/pekkopekko/pacman.o" "codigo jogo/pekkopekko/teclado.o" "codigo jogo/pekkopekko/tela.o" $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -lconio -mwindows -lalleg_s -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lole32 -ldinput -lddraw -ldxguid -lwinmm -ldsound 
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = peeee.exe
+CXXFLAGS = $(CXXINCS) -DALLEGRO_STATICLINK 
+CFLAGS = $(INCS) -DALLEGRO_STATICLINK 
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before peeee.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "peeee.exe" $(LIBS)
+
+"codigo\ jogo/pekkopekko/testejogo.o": codigo\ jogo/pekkopekko/testejogo.c
+	$(CC) -c "codigo jogo/pekkopekko/testejogo.c" -o "codigo jogo/pekkopekko/testejogo.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/astar.o": codigo\ jogo/pekkopekko/astar.c
+	$(CC) -c "codigo jogo/pekkopekko/astar.c" -o "codigo jogo/pekkopekko/astar.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/fantasma.o": codigo\ jogo/pekkopekko/fantasma.c
+	$(CC) -c "codigo jogo/pekkopekko/fantasma.c" -o "codigo jogo/pekkopekko/fantasma.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/fundo.o": codigo\ jogo/pekkopekko/fundo.c
+	$(CC) -c "codigo jogo/pekkopekko/fundo.c" -o "codigo jogo/pekkopekko/fundo.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/jogo.o": codigo\ jogo/pekkopekko/jogo.c
+	$(CC) -c "codigo jogo/pekkopekko/jogo.c" -o "codigo jogo/pekkopekko/jogo.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/main.o": codigo\ jogo/pekkopekko/main.c
+	$(CC) -c "codigo jogo/pekkopekko/main.c" -o "codigo jogo/pekkopekko/main.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/pacman.o": codigo\ jogo/pekkopekko/pacman.c
+	$(CC) -c "codigo jogo/pekkopekko/pacman.c" -o "codigo jogo/pekkopekko/pacman.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/teclado.o": codigo\ jogo/pekkopekko/teclado.c
+	$(CC) -c "codigo jogo/pekkopekko/teclado.c" -o "codigo jogo/pekkopekko/teclado.o" $(CFLAGS)
+
+"codigo\ jogo/pekkopekko/tela.o": codigo\ jogo/pekkopekko/tela.c
+	$(CC) -c "codigo jogo/pekkopekko/tela.c" -o "codigo jogo/pekkopekko/tela.o" $(CFLAGS)
+
+peeee_private.res: peeee_private.rc codigo\ jogo/pekkopekko/pekko_private.rc codigo\ jogo/pekkopekko/pekko_private.res 
+	$(WINDRES) -i peeee_private.rc --input-format=rc -o peeee_private.res -O coff 

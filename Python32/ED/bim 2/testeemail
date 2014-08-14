@@ -1,0 +1,14 @@
+import smtplib
+server = smtplib.SMTP('mail.xx.net')
+ 
+# Envio de e-mail da conta @xy para a conta @xx
+ 
+server.sendmail('andinho.cpv@ig.com.br', 'andersonsilvade@gmail.com',
+"""To: anderson
+From: anderson
+Subject: Teste de envio de email
+Estou lhe enviando este email como um teste.
+""")
+ 
+server.quit()
+print 'Envio OK'

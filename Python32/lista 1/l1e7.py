@@ -1,0 +1,4 @@
+C=float(input("Qual a temperatura em °C: "))
+F=9*(C/5)+32
+print("Temperatura: %d °F" % F)
+
